@@ -5,6 +5,8 @@ using Tangy_Business.Repository;
 using Tangy_Business.Repository.IRepository;
 using Tangy_DataAccess.Data;
 using TangyWeb_Server.Data;
+using TangyWeb_Server.Service.IService;
+using TangyWeb_Server.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +24,7 @@ builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 builder.Services.AddScoped<IProductPriceRepository, ProductPriceRepository>();
 
+builder.Services.AddScoped<IFileUpload, FileUpload>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
