@@ -16,25 +16,25 @@
         @if (Products.Any())
         {
             <table class="table table-bordered">
-                 <thead>
+                <thead>
                     <tr>
                         <th>Name</th>
-                            <th>Shop Favorites</th>
-                            <th>Customer Favorites</th>
-                            <th>Category</th>
+                        <th>Shop Favorites</th>
+                        <th>Customer Favorites</th>
+                        <th>Category</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach(var prod in Products)
+                    @foreach (var prod in Products)
                     {
                         <tr>
                             <td>
                                 @prod.Name
-                            </td> 
+                            </td>
                             <th>
                                 <input type="checkbox" disabled checked="@prod.ShopFavorites">
-                            </th> 
+                            </th>
                             <th>
                                 <input type="checkbox" disabled checked="@prod.CustomerFavorites">
                             </th>
@@ -42,9 +42,9 @@
                                 @prod.Category.Name
                             </th>
                             <td>
-                            <NavLink href="@($"product/edit/{prod.Id}")" class="btn-primary btn">Edit</NavLink>
-                            <NavLink href="@($"product/price/{prod.Id}")" class="btn-success btn">Price</NavLink>
-                            <button class="btn btn-danger" @onclick="()=>HandleDelete(prod.Id)">Delete</button>
+                                <NavLink href="@($"product/edit/{prod.Id}")" class="btn-primary btn">Edit</NavLink>
+                                <NavLink href="@($"product/price/{prod.Id}")" class="btn-success btn">Price</NavLink>
+                                <button class="btn btn-danger" @onclick="()=>HandleDelete(prod.Id)">Delete</button>
                             </td>
                         </tr>
                     }
@@ -57,8 +57,8 @@
             {
                 //loading gif
                 <div class="text-center">
-                <img src="/images/loading.gif">
-                    </div>
+                    <img src="/images/loading.gif">
+                </div>
             }
             else
             {
@@ -75,7 +75,7 @@
     private int DeleteProductId { get; set; } = 0;
 
     [CascadingParameter]
-    public Task<AuthenticationState> AuthenticationState {  get;  set; }
+    public Task<AuthenticationState> AuthenticationState { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -83,7 +83,7 @@
         // if (!authState.User.Identity.IsAuthenticated)
         // {
         //     var uri = new Uri(_navigationManager.Uri);
-        //     _navigationManager.NavigateTo($"/identity/account/login?returnUrl={uri.LocalPath}",forceLoad:true);
+        //     _navigationManager.NavigateTo($"/identity/account/login?returnUrl={uri.LocalPath}", forceLoad: true);
         // }
         // else
         // {
@@ -104,23 +104,23 @@
 
     private async Task LoadProducts()
     {
-        IsLoading=true;
+        IsLoading = true;
         StateHasChanged();
         Products = await _productRepository.GetAll();
-        IsLoading=false;
+        IsLoading = false;
         StateHasChanged();
     }
 
     private void HandleDelete(int id)
     {
-        DeleteProductId=id;
+        DeleteProductId = id;
         _jsRuntime.InvokeVoidAsync("ShowDeleteConfirmationModal");
     }
 
     public async Task ConfirmDelete_Click(bool isConfirmed)
     {
-        IsLoading=true;
-        if(isConfirmed && DeleteProductId!=0)
+        IsLoading = true;
+        if (isConfirmed && DeleteProductId != 0)
         {
             //delete
             ProductDTO product = await _productRepository.Get(DeleteProductId);
@@ -134,6 +134,6 @@
             await LoadProducts();
             await _jsRuntime.InvokeVoidAsync("HideDeleteConfirmationModal");
         }
-        IsLoading=false;
+        IsLoading = false;
     }
 }
