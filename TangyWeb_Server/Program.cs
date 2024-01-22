@@ -9,8 +9,14 @@ using TangyWeb_Server.Data;
 using TangyWeb_Server.Service.IService;
 using TangyWeb_Server.Service;
 
-//JB
-Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1NAaF5cWWJCf0x0QHxbf1x0ZFBMYllbRn9PIiBoS35RckViWHdfd3ZQRGlfWE1y");
+
+// JB - Main key
+// URL - https://www.syncfusion.com/account/downloads
+Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MzA1NzYxMUAzMjM0MmUzMDJlMzBXODd6OHFRMWJlUnFoT2NPL2ZyKzVqeEFuL0FyT1F2UDgvak5scGRPbnpzPQ==");
+
+
+//JB - Temp license
+//Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1NAaF5cWWJCf0x0QHxbf1x0ZFBMYllbRn9PIiBoS35RckViWHdfd3ZQRGlfWE1y");
 
 var builder = WebApplication.CreateBuilder(args);
 
