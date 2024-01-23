@@ -45,7 +45,6 @@ namespace Tangy_DataAccess
         [Required]
         public string Email { get; set; }
 
-
         public string? Tracking { get; set; }
         public string? Carrier { get; set; }
 

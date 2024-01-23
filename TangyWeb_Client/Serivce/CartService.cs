@@ -15,58 +15,59 @@ namespace TangyWeb_Client.Serivce
             _localStorage = localStorageService;
         }
 
-      
-        public async Task IncrementCart(ShoppingCart cartToAdd)
+        public async Task IncrementCart(ShoppingCart shoppingCart)
         {
             var cart = await _localStorage.GetItemAsync<List<ShoppingCart>>(SD.ShoppingCart);
             bool itemInCart = false;
 
-            if (cart==null)
+            if (cart == null)
             {
                 cart = new List<ShoppingCart>();
             }
-            foreach(var obj in cart)
+
+            foreach (var obj in cart)
             {
-                if(obj.ProductId==cartToAdd.ProductId && obj.ProductPriceId==cartToAdd.ProductPriceId)
+                if (obj.ProductId == shoppingCart.ProductId && obj.ProductPriceId == shoppingCart.ProductPriceId)
                 {
                     itemInCart = true;
-                    obj.Count+=cartToAdd.Count;
+                    obj.Count += shoppingCart.Count;
                 }
             }
+
             if (!itemInCart)
             {
                 cart.Add(new ShoppingCart()
                 {
-                    ProductId = cartToAdd.ProductId,
-                    ProductPriceId = cartToAdd.ProductPriceId,
-                    Count = cartToAdd.Count
+                    ProductId = shoppingCart.ProductId,
+                    ProductPriceId = shoppingCart.ProductPriceId,
+                    Count = shoppingCart.Count
                 });
             }
+
             await _localStorage.SetItemAsync(SD.ShoppingCart, cart);
             OnChange.Invoke();
-
         }
 
-        public async Task DecrementCart(ShoppingCart cartToDecrement)
+        public async Task DecrementCart(ShoppingCart shoppingCart)
         {
             var cart = await _localStorage.GetItemAsync<List<ShoppingCart>>(SD.ShoppingCart);
-           
+
             //if count is 0 or 1 then we remove the item
-            for(int i=0; i<cart.Count; i++)
+            for (int i = 0; i < cart.Count; i++)
             {
-                if (cart[i].ProductId==cartToDecrement.ProductId && cart[i].ProductPriceId==cartToDecrement.ProductPriceId)
+                if (cart[i].ProductId == shoppingCart.ProductId && cart[i].ProductPriceId == shoppingCart.ProductPriceId)
                 {
-                    if(cart[i].Count==1 || cartToDecrement.Count==0)
+                    if (cart[i].Count == 1 || shoppingCart.Count == 0)
                     {
                         cart.Remove(cart[i]);
                     }
                     else
                     {
-                        cart[i].Count -= cartToDecrement.Count;
+                        cart[i].Count -= shoppingCart.Count;
                     }
                 }
             }
-            
+
             await _localStorage.SetItemAsync(SD.ShoppingCart, cart);
             OnChange.Invoke();
         }
