@@ -12,8 +12,8 @@ using Tangy_DataAccess.Data;
 namespace Tangy_DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240116233034_AddCategoryToDatabase")]
-    partial class AddCategoryToDatabase
+    [Migration("20240124222638_AddNameToAspNetUser")]
+    partial class AddNameToAspNetUser
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -5,23 +5,15 @@
 <p role="status">Current count: @currentCount</p>
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
-<br /> <br />
+<br /> 
 
-@Count <button class="btn btn-primary" @onclick=StartCountdown>Start Countdown</button>
-
-
-<div style="border:1px; margin: 50px 0px;"></div>
-
-
-
+@Count <button @onclick=StartCountdown>Start Countdown</button>
 
 <div class="border">
     <_LifeCycleChild CountValue="@currentCount"></_LifeCycleChild>
 </div>
 
 <hr />
-
-
 @foreach (var item in EventType)
 {
     @item
@@ -85,7 +77,7 @@
         return true;
     }
 
-    void StartCountdown()
+     void StartCountdown()
     {
         var timer = new Timer(TimeCallBack, null, 1000, 1000);
     }

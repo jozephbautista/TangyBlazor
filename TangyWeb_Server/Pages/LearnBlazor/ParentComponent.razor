@@ -4,27 +4,23 @@
 
 <CascadingValue Value="@MessageForGrandChild" Name="message">
     <CascadingValue Value="@LuckyNumber" Name="luckyNumber">
-        <_ChildComponent @ref="childComp" OnButtonClick="ShowMessage" Title="This title is passed as parameter from Parent Component">
-            <ChildContent> Render Fragement From Parent! WooHOO!</ChildContent>
-            @* <DangerChildContent>Danger Content from Render Fragement! WooHOO!</DangerChildContent> *@
-        </_ChildComponent>
-    </CascadingValue>
+<_ChildComponent @ref="childComp" OnButtonClick="ShowMessage" Title="This title is passed as parameter from Parent Component">
+  <ChildContent> Render Fragement From Parent! WooHOO!</ChildContent>
+ @* <DangerChildContent>Danger Content from Render Fragement! WooHOO!</DangerChildContent> *@
+</_ChildComponent>
+</CascadingValue>
 </CascadingValue>
 
 
 <p><b>@messageText</b></p>
 <_AnotherChildComponent placeholder="Placeholder from Parent"></_AnotherChildComponent>
 
-
 <div class="row">
-    <button class="btn btn-success" @onclick="()=>childComp.ToastrSuccess()">Show Toastr called from parent component</button>
+    <button class="btn btn-success" @onclick="()=>childComp.ToastrSuccess()">Show SweetAlert</button>
 </div>
 
-
-<_ChildComponent Title="This is second child component">
-</_ChildComponent>
-
-
+@*<_ChildComponent Title="This is second child component">
+</_ChildComponent>*@
 
 @code {
     private _ChildComponent childComp;
@@ -35,7 +31,7 @@
 
     private void ShowMessage()
     {
-        messageText = "Tangy button clicked from Child Component";
+        messageText="Tangy button clicked from Child Component";
     }
 
 }

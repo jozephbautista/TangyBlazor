@@ -1,5 +1,4 @@
-﻿// Toastr
-window.ShowToastr = (type, message) => {
+﻿window.ShowToastr = (type, message) => {
     if (type === "success") {
         toastr.success(message, "Operation Successful", { timeOut: 5000 });
     }
@@ -8,8 +7,8 @@ window.ShowToastr = (type, message) => {
     }
 }
 
-// SweetAlert
-window.ShowKamoteAlert = (type, message) => {
+
+window.ShowSwal = (type, message) => {
     if (type === "success") {
         Swal.fire(
             'Success Notification!',
