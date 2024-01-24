@@ -8,11 +8,15 @@ using System.Threading.Tasks;
 
 namespace Tangy_DataAccess.Data
 {
-    //JB: Package Manager Console commands
+    //JB: Package Manager Console commands (MAKE SURE THAT THE DROPDOWN FOR DEFAULT PROJECT IS SET TO: Tangy_DataAccess
+
+    // 1
     // add-migration AddCategoryToDatabase
     // update-database
 
-
+    // 2
+    // add-migration AddOrderHeaderDetailsAndItentityTables
+    // update-database
 
     public class ApplicationDbContext : IdentityDbContext
     {
