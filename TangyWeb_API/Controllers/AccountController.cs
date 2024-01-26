@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -30,14 +29,14 @@ namespace TangyWeb_API.Controllers
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _roleManager=roleManager;
-            _aPISettings= options.Value;
+            _roleManager = roleManager;
+            _aPISettings = options.Value;
         }
 
         [HttpPost]
         public async Task<IActionResult> SignUp([FromBody] SignUpRequestDTO signUpRequestDTO)
         {
-            if(signUpRequestDTO==null || !ModelState.IsValid)
+            if (signUpRequestDTO == null || !ModelState.IsValid)
             {
                 return BadRequest();
             }
@@ -51,14 +50,14 @@ namespace TangyWeb_API.Controllers
                 EmailConfirmed = true
             };
 
-            var result = await _userManager.CreateAsync(user,signUpRequestDTO.Password);
+            var result = await _userManager.CreateAsync(user, signUpRequestDTO.Password);
 
             if (!result.Succeeded)
             {
                 return BadRequest(new SignUpResponseDTO()
                 {
-                    IsRegisterationSuccessful=false,
-                    Errors= result.Errors.Select(u => u.Description)
+                    IsRegisterationSuccessful = false,
+                    Errors = result.Errors.Select(u => u.Description)
                 });
             }
 
@@ -67,8 +66,8 @@ namespace TangyWeb_API.Controllers
             {
                 return BadRequest(new SignUpResponseDTO()
                 {
-                    IsRegisterationSuccessful=false,
-                    Errors= result.Errors.Select(u => u.Description)
+                    IsRegisterationSuccessful = false,
+                    Errors = result.Errors.Select(u => u.Description)
                 });
             }
             return StatusCode(201);
@@ -77,16 +76,16 @@ namespace TangyWeb_API.Controllers
         [HttpPost]
         public async Task<IActionResult> SignIn([FromBody] SignInRequestDTO signInRequestDTO)
         {
-            if (signInRequestDTO==null || !ModelState.IsValid)
+            if (signInRequestDTO == null || !ModelState.IsValid)
             {
                 return BadRequest();
             }
 
-            var result = await _signInManager.PasswordSignInAsync(signInRequestDTO.UserName,signInRequestDTO.Password,false,false);
+            var result = await _signInManager.PasswordSignInAsync(signInRequestDTO.UserName, signInRequestDTO.Password, false, false);
             if (result.Succeeded)
             {
                 var user = await _userManager.FindByNameAsync(signInRequestDTO.UserName);
-                if (user==null)
+                if (user == null)
                 {
                     return Unauthorized(new SignInResponseDTO
                     {
@@ -110,7 +109,7 @@ namespace TangyWeb_API.Controllers
 
                 return Ok(new SignInResponseDTO()
                 {
-                    IsAuthSuccessful=true,
+                    IsAuthSuccessful = true,
                     Token = token,
                     UserDTO = new UserDTO()
                     {
@@ -130,7 +129,7 @@ namespace TangyWeb_API.Controllers
                     ErrorMessage = "Invalid Authentication"
                 });
             }
-           
+
             return StatusCode(201);
         }
 
@@ -139,7 +138,7 @@ namespace TangyWeb_API.Controllers
         {
             var secret = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_aPISettings.SecretKey));
 
-            return new SigningCredentials(secret,SecurityAlgorithms.HmacSha256);
+            return new SigningCredentials(secret, SecurityAlgorithms.HmacSha256);
         }
 
         private async Task<List<Claim>> GetClaims(ApplicationUser user)
@@ -152,7 +151,7 @@ namespace TangyWeb_API.Controllers
             };
 
             var roles = await _userManager.GetRolesAsync(await _userManager.FindByEmailAsync(user.Email));
-            foreach(var role in roles)
+            foreach (var role in roles)
             {
                 claims.Add(new Claim(ClaimTypes.Role, role));
             }

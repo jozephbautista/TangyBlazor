@@ -1,6 +1,6 @@
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Stripe;
 using Syncfusion.Blazor;
 using Tangy_Business.Repository;
 using Tangy_Business.Repository.IRepository;
@@ -8,8 +8,6 @@ using Tangy_DataAccess.Data;
 using TangyWeb_Server.Data;
 using TangyWeb_Server.Service;
 using TangyWeb_Server.Service.IService;
-using Microsoft.AspNetCore.Identity;
-using Stripe;
 
 // JB - Main key
 // URL - https://www.syncfusion.com/account/downloads
