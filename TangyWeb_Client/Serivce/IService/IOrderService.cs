@@ -1,14 +1,13 @@
 ﻿using Tangy_Models;
 
-namespace TangyWeb_Client.Serivce.IService
+namespace TangyWeb_Client.Serivce.IService;
+
+public interface IOrderService
 {
-    public interface IOrderService
-    {
-        public Task<IEnumerable<OrderDTO>> GetAll(string? userId);
-        public Task<OrderDTO> Get(int orderId);
+    public Task<IEnumerable<OrderDTO>> GetAll(string? userId);
+    public Task<OrderDTO> Get(int orderId);
 
-        public Task<OrderDTO> Create(StripePaymentDTO paymentDTO);
+    public Task<OrderDTO> Create(StripePaymentDTO paymentDTO);
 
-        public Task<OrderHeaderDTO> MarkPaymentSuccessful(OrderHeaderDTO orderHeader);
-    }
+    public Task<OrderHeaderDTO> MarkPaymentSuccessful(OrderHeaderDTO orderHeader);
 }
