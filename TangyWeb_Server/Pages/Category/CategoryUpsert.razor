@@ -9,24 +9,25 @@
     <div class="col-10">
         @if (IsLoading)
         {
-             <div class="text-center">
+            <div class="text-center">
                 <img src="/images/loading.gif">
-                    </div>
+            </div>
         }
-        else{
-        <EditForm Model="Category" OnValidSubmit="UpsertCategory">
-            <DataAnnotationsValidator/>
-            @*<ValidationSummary/>*@
-            <div class="form-group">
-                <label>Name</label>
-                <InputText @bind-Value="Category.Name" class="form-control"></InputText> 
-                <ValidationMessage For="()=>Category.Name"></ValidationMessage>
-            </div>
-            <div class="form-group py-2">
-                <button class="btn btn-primary">@Title</button>
-                <NavLink href="category" class="btn btn-secondary">Back to Index</NavLink>
-            </div>
-        </EditForm>
+        else
+        {
+            <EditForm Model="Category" OnValidSubmit="UpsertCategory">
+                <DataAnnotationsValidator />
+                @*<ValidationSummary/>*@
+                <div class="form-group">
+                    <label>Name</label>
+                    <InputText @bind-Value="Category.Name" class="form-control"></InputText>
+                    <ValidationMessage For="()=>Category.Name"></ValidationMessage>
+                </div>
+                <div class="form-group py-2">
+                    <button class="btn btn-primary">@Title</button>
+                    <NavLink href="category" class="btn btn-secondary">Back to Index</NavLink>
+                </div>
+            </EditForm>
         }
     </div>
 </div>
@@ -39,20 +40,20 @@
 
     private CategoryDTO Category { get; set; } = new CategoryDTO();
     private string Title { get; set; } = "Create";
-    public bool IsLoading { get; set; } 
+    public bool IsLoading { get; set; }
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            if (Id==0)
+            if (Id == 0)
             {
                 //create
-                IsLoading=false;
+                IsLoading = false;
             }
             else
             {
                 //update
-                Title="Update";
+                Title = "Update";
                 await LoadCategory();
             }
         }
@@ -61,15 +62,15 @@
 
     private async Task LoadCategory()
     {
-        IsLoading=true;
+        IsLoading = true;
         StateHasChanged();
         Category = await _categoryRepository.Get(Id);
-        IsLoading=false;
+        IsLoading = false;
         StateHasChanged();
     }
-    private  async Task UpsertCategory()
+    private async Task UpsertCategory()
     {
-        if (Category.Id==0)
+        if (Category.Id == 0)
         {
             //create
             await _categoryRepository.Create(Category);
@@ -81,6 +82,6 @@
         }
         _navigationManager.NavigateTo("category");
 
-        
+
     }
 }
